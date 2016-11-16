@@ -1,0 +1,37 @@
+
+
+.main {
+
+	width: 70%;
+	margin: auto;
+	margin-top: 3em;
+	border: 1px solid #eee;
+	padding: 3em;
+
+}
+
+.main h1 {
+	text-align: center;
+}
+
+.gameStarter {
+
+	text-align: center;
+
+}
+
+.startHangman {
+	
+	font-size: 200%;
+
+}
+
+.letterStatus {
+
+	font-size: 150%;
+	font-weight: bold;
+	width: 1em;
+	text-align: center;
+	font-family: monospace;
+
+}
