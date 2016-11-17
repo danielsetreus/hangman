@@ -1,21 +1,17 @@
 <?php
 	$hangman = Hangman\Hangman::getInstance();
-	$hangman->guess('a');
-	$hangman->guess('b');
 ?>
 <code><pre><?php var_dump($_SESSION['hangman']); ?></pre></code>
 
-<p>
-<code><pre>Printa gubben</pre></code>
-</p>
-
-<p>Formulär för att gissa</p>
-
 <?php
-	$wordStatus = $hangman->getWordStatus();
-	foreach($wordStatus as $letter) {
-		?>
-			<input type="text" class="letterStatus" value="<?php echo $letter;?>" disabled>
-		<?php
-	}
+	$hangman->renderGameState();
 ?>
+
+<form action="formHandler.php" method="post">
+	<p>
+		Make a guess
+	</p>
+	<input type="text" name="guessedLetter" class="letterStatus" maxlength="1">
+	<input type="submit" value="Guess">
+	<input type="hidden" name="action" value="guess">
+</form>

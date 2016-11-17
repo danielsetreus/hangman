@@ -24,7 +24,20 @@
 
 		public function showState() {
 
-			include dirname(__FILE__) . "/templates/" . $this->state . ".php";
+			//include dirname(__FILE__) . "/templates/" . $this->state . ".php";
+			$this->render($this->state);
+
+		}
+
+		public function renderGameState() {
+
+			$this->render('hangmanState');
+
+		}
+
+		private function render($file) {
+
+			include dirname(__FILE__) . "/templates/" . $file . ".php";
 
 		}
 
@@ -40,11 +53,10 @@
 		}
 
 		public function getWordStatus() {
-			$state = $_SESSION['hangman'];
-			$letters = str_split($state['word']);
+			$letters = str_split($this->stateSession['word']);
 			$re = array();
 			foreach($letters as $letter) {
-				if(in_array($letter, $state['guesses']))
+				if(in_array($letter, $this->stateSession['guesses']))
 					$re[] = $letter;
 				else 
 					$re[] = '_';
@@ -54,19 +66,31 @@
 
 		public function guess($letter) {
 
-			if(!in_array($letter, $_SESSION['hangman']['guesses']))
+			if(!in_array($letter, $_SESSION['hangman']['guesses'])) {
 				$_SESSION['hangman']['guesses'][] = $letter;
+				$_SESSION['hangman']['tries'] ++;
+			}
 
 		}
 
 		private function getState() {
 			if(!$this->stateSession)
 				return 'start';
-			
-			if($this->stateSession['tries'] <= 6)
+
+			if($this->gameIsWon())
+				return 'won';
+			elseif($this->stateSession['tries'] <= 6)
 				return 'game';
 			else
 				return 'gameOver';
+		}
+
+		private function gameIsWon() {
+			$letters = str_split($this->stateSession['word']);
+			$compare = array_intersect($letters, $this->stateSession['guesses']);
+			if(count($compare) === count($letters))
+				return true;
+			return false;
 		}
 
 	}

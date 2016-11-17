@@ -8,6 +8,9 @@
 		case 'newGame':
 			$hangman->newGame();
 			break;
+		case 'guess':
+			$hangman->guess($_POST['guessedLetter']);
+			break;
 		default:
 			// Nothing
 
