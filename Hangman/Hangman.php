@@ -13,6 +13,7 @@
 			
 			$this->stateSession = isset($_SESSION['hangman']) ? $_SESSION['hangman'] : false;
 			$this->state = $this->getState();
+			$this->hungedmanStates = require('hungstates.php');
 
 		}
 
@@ -24,7 +25,6 @@
 
 		public function showState() {
 
-			//include dirname(__FILE__) . "/templates/" . $this->state . ".php";
 			$this->render($this->state);
 
 		}
@@ -35,20 +35,20 @@
 
 		}
 
-		private function render($file) {
+		public function render($file) {
 
 			include dirname(__FILE__) . "/templates/" . $file . ".php";
 
 		}
 
-		public function newGame() {
+		public function newGame($difficulty) {
 			
-			$wordFetcher = new WordFetcher();
-			$word = $wordFetcher->getRandomWord(6);
+			$wordFetcher = new WordFetcher($difficulty);
+			$word = strtolower($wordFetcher->getRandomWord());
 			if($this->stateSession)
 				unset($_SESSION['hangman']);
 
-			$_SESSION['hangman'] = array('word' => $word, 'tries' => 0, 'guesses' => array());
+			$_SESSION['hangman'] = array('word' => $word, 'incorrectTries' => 0, 'guesses' => array());
 			
 		}
 
@@ -64,13 +64,36 @@
 			return $re;
 		}
 
+		public function getHungedManImage() {
+			return $this->hungedmanStates[$this->stateSession['incorrectTries']];
+		}
+
 		public function guess($letter) {
+			if(strlen($letter) !== 1) return;
 
-			if(!in_array($letter, $_SESSION['hangman']['guesses'])) {
+			if(!in_array(strtolower($letter), $this->stateSession['guesses'])) {
 				$_SESSION['hangman']['guesses'][] = $letter;
-				$_SESSION['hangman']['tries'] ++;
+				if(!$this->guessIsCorrect(strtolower($letter)))
+					$_SESSION['hangman']['incorrectTries'] ++;
 			}
+			
+		}
 
+		public function getWord() {
+			return $this->stateSession['word'];
+		}
+
+		public function getIncorrectTries() {
+			return $this->stateSession['incorrectTries'];
+		}
+
+		public function getGuesses() {
+			return $this->stateSession['guesses'];
+		}
+
+		private function guessIsCorrect($guess) {
+			$letters = str_split($this->stateSession['word']);
+			return in_array($guess, $letters);
 		}
 
 		private function getState() {
@@ -79,7 +102,7 @@
 
 			if($this->gameIsWon())
 				return 'won';
-			elseif($this->stateSession['tries'] <= 6)
+			elseif($this->stateSession['incorrectTries'] <= 8)
 				return 'game';
 			else
 				return 'gameOver';

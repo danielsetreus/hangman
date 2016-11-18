@@ -1,17 +1,15 @@
-<?php
-	$hangman = Hangman\Hangman::getInstance();
-?>
-<code><pre><?php var_dump($_SESSION['hangman']); ?></pre></code>
-
-<?php
-	$hangman->renderGameState();
-?>
-
-<form action="formHandler.php" method="post">
+<form action="formHandler.php" method="post" class="makeGuessForm">
 	<p>
 		Make a guess
 	</p>
-	<input type="text" name="guessedLetter" class="letterStatus" maxlength="1">
+	<input type="text" name="guessedLetter" class="letterStatus" maxlength="1" autofocus required>
 	<input type="submit" value="Guess">
 	<input type="hidden" name="action" value="guess">
 </form>
+
+<?php
+	$hangman = Hangman\Hangman::getInstance();
+
+	$hangman->renderGameState();
+?>
+

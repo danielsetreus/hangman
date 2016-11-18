@@ -6,7 +6,7 @@
 	switch($_POST['action']) {
 
 		case 'newGame':
-			$hangman->newGame();
+			$hangman->newGame($_POST['difficulty']);
 			break;
 		case 'guess':
 			$hangman->guess($_POST['guessedLetter']);

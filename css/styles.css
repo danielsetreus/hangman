@@ -10,7 +10,7 @@
 
 }
 
-.main h1 {
+.main h1, .main h3 {
 	text-align: center;
 }
 
@@ -33,5 +33,70 @@
 	width: 1em;
 	text-align: center;
 	font-family: monospace;
+
+}
+
+.makeGuessForm {
+
+	text-align: center;
+
+}
+
+.tip {
+	
+	font-family: monospace;
+	font-size: 130%;
+
+}
+
+.gameStarter, .makeGuessForm {
+
+	margin-top: 1.5em;
+
+}
+
+.hangmanImage {
+	
+	margin: auto; width: 200px;
+	
+}
+
+.gameStatus {
+
+	text-align: center;
+
+}
+
+.difficultySelect {
+
+	width: 20%;
+	margin: auto;
+	text-align: left;
+
+}
+
+.difficultySelect input[type='radio'] {
+
+	float: right;
+
+}
+
+.difficulty {
+
+	margin-bottom: 10px;
+
+}
+
+.diffLabel {
+	
+	width: 50%;
+	display: inline-block;
+
+}
+.diffDesc {
+
+	display: block;
+	font-size: 90%;
+	color: #c7c7c7;
 
 }
