@@ -6,19 +6,19 @@
 		<div class="difficulty">
 			<div class="diffLabel"><label for="easy">Easy</label></div>
 			<input type="radio" name="difficulty" value="easy" id="easy">
-			<span class="diffDesc">3-4 letters, only nouns</span>
+			<span class="diffDesc">Frequency 7</span>
 		</div>
 
 		<div class="difficulty">
 			<div class="diffLabel"><label for="medium">Medium</label></div>
 			<input type="radio" name="difficulty" value="medium" id="medium" checked>
-			<span class="diffDesc">5-6 letters, only nouns</span>
+			<span class="diffDesc">Frequency 6</span>
 		</div>
 
 		<div class="difficulty">
 			<div class="diffLabel"><label for="hard">Hard</label></div>
 			<input type="radio" name="difficulty" value="hard" id="hard">
-			<span class="diffDesc">6-8 letters</span>
+			<span class="diffDesc">Frequency 4-5</span>
 		</div>
 	</div>
 	<button id="startHangman" class="startHangman">Start new game!</button>
